@@ -52,7 +52,7 @@ const ExpensesChart = () => {
     <section className="expenses">
       <h2>Расходы за апрель</h2>
       <div className="chart-container">
-        <canvas ref={chartRef}></canvas>
+        <canvas ref={chartRef} className='chart'></canvas>
       </div>
       <ul className="expense-list">
         <li>

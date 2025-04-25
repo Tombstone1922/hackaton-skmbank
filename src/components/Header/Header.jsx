@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header>
       <div className="logo">
-        <img src="/halva-logo.png" alt="Логотип Халва" />
+        <img src="/logo.png" alt="Логотип Халва" className='logo-img'/>
       </div>
       <nav>
         <ul>
@@ -17,7 +17,7 @@ const Header = () => {
       </nav>
       <div className="user">
         <a href="#" className="login">Войти</a>
-        <img src="/user-icon.png" alt="Аватар пользователя" />
+        <img src="/user.png" alt="Аватар пользователя" className='user-img'/>
       </div>
     </header>
   );
