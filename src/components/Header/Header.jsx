@@ -9,10 +9,10 @@ const Header = () => {
       </div>
       <nav>
         <ul>
-          <li><a href="#">Главная</a></li>
+          <li><a href="/">Главная</a></li>
           <li><a href="#">Чеки</a></li>
           <li><a href="#">История</a></li>
-          <li><a href="#">Рекомендации</a></li>
+          <li><a href="/recommendations">Рекомендации</a></li>
         </ul>
       </nav>
       <div className="user">
