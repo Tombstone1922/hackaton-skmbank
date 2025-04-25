@@ -1,0 +1,142 @@
+/* src/styles/style.scss */
+
+// Переменные для цветов
+$primary-color: #e74c3c;
+$secondary-color: #3498db;
+$success-color: #2ecc71;
+$warning-color: #f1c40f;
+
+$background-color: #f4f4f4;
+$text-color: #333;
+
+// Общие стили
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: $background-color;
+  color: $text-color;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+  width: 100px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+
+  li a {
+    text-decoration: none;
+    color: $text-color;
+    font-weight: bold;
+  }
+}
+
+.user {
+  display: flex;
+  gap: 10px;
+
+  .login {
+    text-decoration: none;
+    color: $primary-color;
+    font-weight: bold;
+  }
+
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+}
+
+main {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.expenses,
+.trends {
+  display: flex;
+  gap: 20px;
+  min-height: 400px;
+}
+
+.chart-container {
+  width: 30%;
+  height: 30%;
+}
+
+.expense-list {
+  list-style: none;
+  padding: 0;
+}
+
+.expense-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.green { background-color: #2ecc71; }
+.blue { background-color: #3498db; }
+.red { background-color: #e74c3c; }
+.yellow { background-color: #f1c40f; }
+
+.add-check {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.trends {
+  margin-top: 40px;
+}
+
+.time-periods {
+  display: flex;
+  gap: 10px;
+}
+
+.time-periods button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.time-periods button.active {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.summary {
+  margin-top: 20px;
+}
