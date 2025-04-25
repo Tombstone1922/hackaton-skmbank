@@ -19,10 +19,12 @@ function App() {
       <AuthProvider>
         <div className="App">
           <Header />
+          <div className='main'>
           <Routes>
           <Route path="/" element={<ExpensesChart />} />
           <Route path="/recommendations" element={<Recommendations />} />
           </Routes>
+          </div>
         </div>
       </AuthProvider>
     </Router>
