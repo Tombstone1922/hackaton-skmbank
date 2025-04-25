@@ -1,3 +1,18 @@
-node_modules
-# Keep environment variables out of version control
+# Зависимости
+node_modules/
+
+# Среда разработки
 .env
+.env.local
+
+# Сборка
+dist/
+build/
+
+# Логи и системные файлы
+*.log
+.DS_Store
+
+# IDE
+.vscode/
+.idea/

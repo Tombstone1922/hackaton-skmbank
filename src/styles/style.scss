@@ -1,0 +1,98 @@
+/* src/styles/style.scss */
+
+// Переменные для цветов
+$primary-color: #e74c3c;
+$secondary-color: #3498db;
+$success-color: #2ecc71;
+$warning-color: #f1c40f;
+$background-color: #f4f4f4;
+$text-color: #333;
+
+
+// Общие стили
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  color: $text-color;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px 50px;
+}
+
+.logo-img {
+  width: 100%;
+  height: 100%;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  font-size: 20px;
+
+  li a {
+    text-decoration: none;
+    color: $text-color;
+    font-weight: bold;
+  }
+}
+
+.user {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  font-size: 24px;
+
+  .login {
+    text-decoration: none;
+    color: $primary-color;
+    font-weight: bold;
+  }
+
+  .user-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+}
+
+.main {
+  margin: 20px auto;
+  padding: 20px 50px;
+}
+
+
+.trends {
+  margin-top: 40px;
+}
+
+.time-periods {
+  display: flex;
+  gap: 10px;
+}
+
+.time-periods button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.time-periods button.active {
+  background-color: $primary-color;
+  color: #fff;
+}
+
+.summary {
+  margin-top: 20px;
+}

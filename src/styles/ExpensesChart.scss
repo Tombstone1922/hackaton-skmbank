@@ -1,0 +1,63 @@
+/* src/styles/ExpensesChart.scss */
+
+// Переменные для цветов
+$primary-color: #e74c3c;
+$background-color: #f4f4f4;
+
+.green { background-color: #2ecc71; }
+.blue { background-color: #3498db; }
+.red { background-color: #e74c3c; }
+.yellow { background-color: #f1c40f; }
+
+.expenses,
+.trends {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px 50px;
+  border-radius: 30px;
+  background-color: $background-color;
+  width: 30%;
+}
+
+.expenses {
+  h2 {
+    font-size: 24px;
+    color: #333;
+  }
+
+  .chart-container {
+    width: 100%;
+    height: 100%;
+    background-color: $background-color;
+    border-radius: 30px;
+  }
+
+  .expense-list {
+    list-style: none;
+    padding: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+
+      .circle {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .add-check {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    width: 100%;
+  }
+}
