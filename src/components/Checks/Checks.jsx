@@ -25,6 +25,8 @@ const Checks = () => {
     document.getElementById('file-upload').click(); // Программно вызываем клик на скрытом input
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="checks">
       {/* Блок загрузки чека */}
@@ -47,30 +49,52 @@ const Checks = () => {
 
       <div className="check-container">
         <p className="title">Ваши чеки</p>
-          <div className="check-table">
-            <div className="check-card">
-              <div className="top-section">
-                <p className="title">Чек №85204</p>
-                <p className="date">Отсканировано: 25.04.2025 10:03</p>
+        <div className="check-table">
+          <div className="check-card">
+            <div className="top-section">
+              <p className="title">Чек №85204</p>
+              <p className="date">Отсканировано: 25.04.2025 10:03</p>
+            </div>
+            <div className="info-table opened">
+              <div className="item">
+                <p className="item-title">Сумма платежа</p>
+                <p className="item-value">287.93 ₽</p>
               </div>
-              <div className="info-table">
-                <div className="item">
-                  <p className="item-title">Название организации</p>
-                  <p className="item-value">Master Grill</p>
-                </div>
-                <div className="item">
-                  <p className="item-title">Дата и время совершения платежа</p>
-                  <p className="item-value">25.04.2025 14:00</p>
-                </div>
-                <div className="item">
-                  <p className="item-title">Адрес совершения платежа</p>
-                  <p className="item-value">446022,63,САМАРСКАЯ ОБЛАСТЬ,СЫЗРАНЬ Г,ЛОКОМОБИЛЬНАЯ УЛ,1</p>
-                </div>
+              <div className="item">
+                <p className="item-title">Дата и время совершения платежа</p>
+                <p className="item-value">25.04.2025 14:00</p>
               </div>
-              <button className="more-button">Подробнее...</button>
+              <div className="item">
+                <p className="item-title">Название организации</p>
+                <p className="item-value">АГРОТОРГ</p>
               </div>
             </div>
+
+            <button
+            className="more-button"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-expanded={isOpen}
+            >
+              {isOpen ? 'Скрыть' : 'Подробнее'}
+            </button>
+
+            <div className={`info-table ${isOpen ? 'opened' : ''}`}>
+              <div className="item">
+                <p className="item-title">Тип операции</p>
+                <p className="item-value">Приход</p>
+              </div>
+              <div className="item">
+                <p className="item-title">ИНН</p>
+                <p className="item-value">7825706086</p>
+              </div>
+              <div className="item">
+                <p className="item-title">Адрес совершения платежа</p>
+                <p className="item-value">446022,63,САМАРСКАЯ ОБЛАСТЬ,СЫЗРАНЬ Г,ЛОКОМОБИЛЬНАЯ УЛ,1</p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
   );
 };

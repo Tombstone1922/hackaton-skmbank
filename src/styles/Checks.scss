@@ -80,7 +80,7 @@ $outline-color: #DADADA;
             }
 
             .info-table {
-                display: flex;
+                display: none;
                 gap: 50px;
 
                 @media (max-width: 625px) {
@@ -96,6 +96,9 @@ $outline-color: #DADADA;
                     .item-value {
                         font-size: 20px;
                     }
+                }
+                &.opened {
+                    display: flex;
                 }
             }
 
