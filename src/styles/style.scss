@@ -77,10 +77,11 @@ header {
     gap: 10px;
     align-items: center;
 
-    a {
+    .user a {
       text-decoration: none;
-      color: $primary-color;
+      color: #e74c3c;
       font-weight: 600;
+      font-size: 22px;
     }
 
     .user-img {
