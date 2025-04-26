@@ -1,145 +1,134 @@
+const authService = require('../services/authService'); // Обработка логики
 const jwt = require('jsonwebtoken');
-const prisma = require('../prismaClient');  // Подключаем Prisma
-const bcrypt = require('bcrypt');
-require('dotenv').config();
 
-// Создание токенов
-function generateAccessToken(user) {
-  return jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-}
-
-function generateRefreshToken(user) {
-  return jwt.sign({ id: user.id, username: user.username }, process.env.JWT_REFRESH_SECRET, { expiresIn: '7d' });
-}
-
+// Регистрация пользователя
 exports.register = async (req, res) => {
-  try {
-    const { username, password } = req.body;
-
-    // Валидация входных данных
-    if (!username || !password) {
-      return res.status(400).json({ error: 'Username and password are required' });
-    }
-
-    if (password.length < 8) {
-      return res.status(400).json({ message: 'Password must be at least 8 characters long' });
-    }
-
-    if ( username.length < 6) {
-      return res.status(400).json({ message: "Username must be at least 6 characters long" });
-    }
-
-    // Проверка, существует ли юзер
-    const existingUser = await prisma.user.findUnique({
-      where: { username },
-    });
-    if (existingUser) {
-      return res.status(409).json({ error: 'Username already taken' });
-    }
-
-    // Хешируем пароль
-    const saltRounds = 10;
-    const passwordHash = await bcrypt.hash(password, saltRounds);
-
-    // Создаем юзера
-    const user = await prisma.user.create({
-      data: {
-        username,
-        passwordHash,
-      },
-    });
-
-    // Возвращаем успех
-    return res.status(201).json({
-      message: 'User registered successfully',
-      user: {
-        id: user.id,
-        username: user.username,
-      },
-    });
-  } catch (error) {
-    console.error('Registration error:', error);
-    return res.status(500).json({ error: 'Internal server error' });
-  } finally {
-    await prisma.$disconnect();
-  }
-};
-
-exports.login = async (req, res) => {
-  const { username, password } = req.body || {};
+  const { username, password } = req.body;
 
   if (!username || !password) {
     return res.status(400).json({ message: 'Username and password are required' });
   }
 
   try {
-    // Найдём пользователя по username
-    const user = await prisma.user.findUnique({ where: { username } });
-
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid credentials' });
-    }
-
-    // Проверяем, совпадает ли пароль
-    const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
-    if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid credentials' });
-    }
-
-    // Генерация токенов
-    const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    const refreshToken = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_REFRESH_SECRET, { expiresIn: '7d' });
-
-    res.json({
-      token,
-      refreshToken,
-      expiresIn: 3600
+    const result = await authService.register(username, password);
+    return res.status(201).json({
+      message: 'User registered successfully',
+      user: {
+        id: result.id,
+        username: result.username,
+      },
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Register error:', err);
+    return res.status(409).json({ message: err.message || 'Username already taken' });
   }
 };
 
+// Логин пользователя
+exports.login = async (req, res) => {
+  const { username, password } = req.body;
 
-exports.refresh = async (req, res) => {
-  const { refreshToken } = req.body || {};
-
-  if (!refreshToken) {
-    return res.status(400).json({ message: 'Refresh token is required' });
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Username and password are required' });
   }
 
-  jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, async (err, user) => {
-    if (err) {
-      return res.status(403).json({ message: 'Invalid refresh token' });
-    }
+  try {
+    const result = await authService.login(username, password);
 
-    const dbUser = await prisma.user.findUnique({ where: { id: user.id } });
-
-    if (!dbUser) {
-      return res.status(403).json({ message: 'Invalid refresh token' });
-    }
-
-    const newToken = generateAccessToken(dbUser);
-
-    res.json({
-      token: newToken,
-      expiresIn: 3600
+    // Устанавливаем cookies с токенами
+    res.cookie('accessToken', result.accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // Безопасность для production
+      sameSite: 'Strict', // Для защиты от CSRF
+      maxAge: 15 * 60 * 1000, // 15 минут
     });
-  });
+
+    res.cookie('refreshToken', result.refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // Безопасность для production
+      sameSite: 'Strict', // Для защиты от CSRF
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 дней
+    });
+
+    return res.status(200).json({ message: 'Login successful' });
+  } catch (err) {
+    console.error('Login error:', err);
+    return res.status(401).json({ message: err.message || 'Invalid credentials' });
+  }
 };
 
+// Обновление токенов
+exports.refresh = async (req, res) => {
+  const { refreshToken } = req.cookies; // Получаем refreshToken из cookies
+
+  if (!refreshToken) {
+    return res.status(401).json({ message: 'Refresh token is required' });
+  }
+
+  try {
+    const result = await authService.refresh(refreshToken);
+
+    res.cookie('accessToken', result.accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Strict',
+      maxAge: 15 * 60 * 1000, // 15 минут
+    });
+
+    if (result.refreshToken) {
+      res.cookie('refreshToken', result.refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'Strict',
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 дней
+      });
+    }
+
+    return res.status(200).json({ message: 'Token refreshed' });
+  } catch (err) {
+    console.error('Refresh error:', err);
+    return res.status(401).json({ message: err.message || 'Invalid refresh token' });
+  }
+};
+
+// Логаут пользователя
 exports.logout = async (req, res) => {
-  const { refreshToken } = req.body || {};
+  const { refreshToken } = req.cookies || {}; // Защита от undefined
 
   if (!refreshToken) {
     return res.status(400).json({ message: 'Refresh token is required' });
   }
 
-  // Инвалидируем refresh token в базе данных
-  await prisma.refreshToken.delete({
-    where: { token: refreshToken }
-  });
+  try {
+    await authService.logout(refreshToken);
 
-  res.json({ message: 'Logged out successfully' });
+    res.clearCookie('accessToken');
+    res.clearCookie('refreshToken');
+
+    return res.status(200).json({ message: 'Logged out successfully' });
+  } catch (err) {
+    console.error('Logout error:', err);
+    return res.status(401).json({ message: err.message || 'Invalid refresh token' });
+  }
+};
+
+// Информация о текущем пользователе (только для авторизованных)
+exports.me = async (req, res) => {
+  const { accessToken } = req.cookies; // Получаем accessToken из cookies
+
+  if (!accessToken) {
+    return res.status(401).json({ message: 'Access token is required' });
+  }
+
+  try {
+    const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
+
+    return res.status(200).json({
+      username: decoded.username,
+      id: decoded.id,
+    });
+  } catch (err) {
+    console.error('Me error:', err);
+    return res.status(401).json({ message: 'Invalid or expired access token' });
+  }
 };

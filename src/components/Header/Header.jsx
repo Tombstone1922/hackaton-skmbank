@@ -1,14 +1,16 @@
 // src/components/Header/Header.jsx
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom'; // Импортируем useLocation
+import React, { useContext } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 const Header = () => {
-  const location = useLocation(); // Получаем текущий путь
+  const location = useLocation();
+  const { isAuthenticated, logout } = useContext(AuthContext);
 
   return (
     <header>
       <a href="/" className="logo">
-        <img src="/logo.png" alt="Логотип Халва" className='logo-img'/>
+        <img src="/logo.png" alt="Логотип Халва" className="logo-img" />
       </a>
       <nav>
         <ul>
@@ -47,8 +49,16 @@ const Header = () => {
         </ul>
       </nav>
       <div className="user">
-        <a href="/login" className="login">Войти</a>
-        <img src="/user.png" alt="Аватар пользователя" className='user-img'/>
+        {isAuthenticated ? (
+          <button onClick={logout} className="logout">
+            Выйти
+          </button>
+        ) : (
+          <Link to="/login" className="login">
+            Войти
+          </Link>
+        )}
+        <img src="/user.png" alt="Аватар пользователя" className="user-img" />
       </div>
     </header>
   );

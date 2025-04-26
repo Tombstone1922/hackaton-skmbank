@@ -1,7 +1,7 @@
 // src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './components/AuthContext/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 import Header from './components/Header/Header';
 import ExpensesChart from './components/ExpensesChart/ExpensesChart';
 import TrendsChart from './components/TrendsChart/TrendsChart';
@@ -16,7 +16,7 @@ function App() {
       <AuthProvider>
         <div className="App">
           <Header />
-          <main className='main-page'>
+          <main className="main-page">
             <Routes>
               <Route
                 path="/"
