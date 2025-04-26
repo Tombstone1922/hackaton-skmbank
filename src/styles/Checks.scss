@@ -48,6 +48,10 @@ $outline-color: #DADADA;
     }
 
     .check-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
         .title {
             font-weight: 600;
             font-size: 24px;
@@ -57,6 +61,9 @@ $outline-color: #DADADA;
             border-radius: 20px;
             outline: 0.5px solid $outline-color;
             padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
 
             .top-section {
                 display: flex;
@@ -74,6 +81,7 @@ $outline-color: #DADADA;
 
             .info-table {
                 display: flex;
+                gap: 50px;
                 .item {
                     .item-title {
                         font-size: 16px;
@@ -83,6 +91,30 @@ $outline-color: #DADADA;
                     .item-value {
                         font-size: 20px;
                     }
+                }
+            }
+
+            .more-button {
+                background-color: $main-red;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 15px;
+                cursor: pointer;
+                width: 10%;
+
+                @media (max-width: 1024px) {
+                    width: 20%;
+                }
+
+                @media (max-width: 768px) {
+                    width: 100%;
+                }
+
+                &:hover {
+                    color: $main-red;
+                    background-color: #fff;
+                    outline: 0.5px solid $outline-color;
                 }
             }
         }
