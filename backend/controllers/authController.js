@@ -12,6 +12,59 @@ function generateRefreshToken(user) {
   return jwt.sign({ id: user.id, username: user.username }, process.env.JWT_REFRESH_SECRET, { expiresIn: '7d' });
 }
 
+exports.register = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    // Валидация входных данных
+    if (!username || !password) {
+      return res.status(400).json({ error: 'Username and password are required' });
+    }
+
+    if (password.length < 8) {
+      return res.status(400).json({ message: 'Password must be at least 8 characters long' });
+    }
+
+    if ( username.length < 6) {
+      return res.status(400).json({ message: "Username must be at least 6 characters long" });
+    }
+
+    // Проверка, существует ли юзер
+    const existingUser = await prisma.user.findUnique({
+      where: { username },
+    });
+    if (existingUser) {
+      return res.status(409).json({ error: 'Username already taken' });
+    }
+
+    // Хешируем пароль
+    const saltRounds = 10;
+    const passwordHash = await bcrypt.hash(password, saltRounds);
+
+    // Создаем юзера
+    const user = await prisma.user.create({
+      data: {
+        username,
+        passwordHash,
+      },
+    });
+
+    // Возвращаем успех
+    return res.status(201).json({
+      message: 'User registered successfully',
+      user: {
+        id: user.id,
+        username: user.username,
+      },
+    });
+  } catch (error) {
+    console.error('Registration error:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
 exports.login = async (req, res) => {
   const { username, password } = req.body || {};
 
