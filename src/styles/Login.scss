@@ -5,41 +5,28 @@ $bg-color: #FAF8F8;
 $outline-color: #e74c3c;
 
 .auth-bg {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-
     .auth-main {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        max-width: 400px;
-        width: 100%;
-        padding: 30px 30px;
-        background-color: $bg-color;
+        padding: 50px;
+        min-width: 400px;
+        background-color: #FAF8F8;
         border-radius: 15px;
         text-align: center;
         position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
         align-items: center;
 
+
         .auth-container {
-            width: 100%;
             display: flex;
             flex-direction: column;
             gap: 10px;
-            .title {
-                font-weight: 300;
-                text-align: left;
-                font-size: 12px;
-                letter-spacing: -0.5px;
-                position: relative;
-            }
+            width: 100%;
 
             input {
                 width: 100%;
-                padding: 20px;
+                padding: 10px;
                 margin: 10px 0;
                 border: 1px solid $secondary-red;
                 border-radius: 15px;
@@ -63,6 +50,10 @@ $outline-color: #e74c3c;
             border-radius: 15px;
             cursor: pointer;
             width: 50%;
+
+            @media (max-width: 768px) {
+                width: 100%;
+            }
           
             &:hover {
               color: $main-red; 

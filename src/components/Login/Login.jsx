@@ -9,14 +9,12 @@ const Login = () => {
             <h2 className="auth-title">Вход</h2>
             <div className="auth-container">
                 <div className="auth-input">
-                    <p className="title">Логин или адрес электронной почты *</p>
                     <input
                     type="text"
                     placeholder="Логин"
                     />
                 </div>
                 <div className="auth-input">
-                    <p className="title">Пароль *</p>
                     <input
                     type="text"
                     placeholder="Пароль"
