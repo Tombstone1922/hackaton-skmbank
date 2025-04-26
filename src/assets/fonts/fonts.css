@@ -1,0 +1,20 @@
+/* src/assets/fonts/fonts.css */
+
+/* Roboto Flex */
+@font-face {
+    font-family: 'Roboto Flex';
+    src: url('RobotoFlex-Regular.woff2') format('woff2'),
+        url('RobotoFlex-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('Montserrat-Thin.woff2') format('woff2'),
+        url('Montserrat-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}

@@ -1,4 +1,5 @@
 /* src/styles/style.scss */
+@import "../assets/fonts/fonts.css";
 
 // Переменные для цветов
 $primary-color: #e74c3c;
@@ -14,7 +15,7 @@ $text-color: #333;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: "Roboto Flex";
 }
 
 body {
