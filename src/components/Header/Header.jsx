@@ -30,14 +30,6 @@ const Header = () => {
           </li>
           <li>
             <Link
-              to="/history"
-              className={location.pathname === '/history' ? 'active' : ''}
-            >
-              История
-            </Link>
-          </li>
-          <li>
-            <Link
               to="/recommendations"
               className={location.pathname === '/recommendations' ? 'active' : ''}
             >
