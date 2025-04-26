@@ -1,6 +1,7 @@
 // src/components/ExpensesChart/ExpensesChart.jsx
 import React, { useEffect, useRef } from 'react';
 import { Chart } from 'chart.js/auto';
+import { Link } from 'react-router-dom'; // Импортируем Link
 import "../../styles/ExpensesChart.scss"; // Импорт SCSS
 
 const ExpensesChart = () => {
@@ -89,7 +90,10 @@ const ExpensesChart = () => {
           <span>2 250 ₽</span>
         </li>
       </ul>
-      <button className="add-check">Добавить чек</button>
+      {/* Кнопка "Добавить чек" заменяется на Link */}
+      <Link to="/checks" className="add-check">
+        Добавить чек
+      </Link>
     </section>
   );
 };
