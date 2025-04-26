@@ -45,6 +45,18 @@ nav ul {
     text-decoration: none;
     color: $text-color;
     font-weight: bold;
+    padding: 5px 0;
+
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+
+  .active {
+    border-bottom: 3px solid $primary-color;
+    border-radius: 3px;
   }
 }
 
