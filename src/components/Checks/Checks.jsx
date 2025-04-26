@@ -180,7 +180,7 @@ const Checks = () => {
       <p><strong>Итого:</strong> ${results.total ? results.total.toFixed(2) + ' ₽' : 'не распознана'}</p>
     `;
     if (results.items.length > 0) {
-      html += `<h3>Позиции:</h3><div id="itemsList">`;
+      html += `<h3>Позиции:</h3><div>`;
       results.items.forEach((item, i) => {
         html += `
           <div class="item-row">
@@ -217,7 +217,10 @@ const Checks = () => {
           style={{ display: 'none' }} // Скрываем стандартный input
           onChange={handleFileChange}
         />
-        {error && <p className="error-message">{error}</p>}
+        
+      </div>
+
+      {error && <p className="error-message">{error}</p>}
         {selectedFile && (
           <p className="success-message">Файл "{selectedFile.name}" успешно загружен!</p>
         )}
@@ -226,19 +229,19 @@ const Checks = () => {
             <div className="progress" style={{ width: `${progress}%` }}></div>
             <span>{progress}%</span>
           </div>
-        )}
-        {!isProcessing && selectedFile && (
-          <button className="process-button" onClick={processReceipt}>
-            Обработать чек
-          </button>
-        )}
-        {results && (
-          <div className="results">
-            <h2>Результаты распознавания</h2>
-            <div dangerouslySetInnerHTML={{ __html: displayResults() }} />
-          </div>
-        )}
-      </div>
+      )}
+
+      {!isProcessing && selectedFile && (
+        <button className="process-button" onClick={processReceipt}>
+          Обработать чек
+        </button>
+      )}
+      {results && (
+        <div className="results">
+          <h2>Результаты распознавания</h2>
+          <div dangerouslySetInnerHTML={{ __html: displayResults() }} />
+        </div>
+      )}
 
       {/* Блок с чеками */}
       <div className="check-container">
