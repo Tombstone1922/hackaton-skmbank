@@ -77,5 +77,13 @@ $outline-color: #e74c3c;
         outline: 0.5px solid $outline-color;
       }
     }
+
+    .login-link {
+        display: block;
+        margin-top: 10px;
+        color: #FF4E50;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
   }
 }
