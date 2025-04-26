@@ -7,27 +7,34 @@ $bg-color: #FAF8F8;
 $outline-color: #e74c3c;
 
 .auth-bg {
-  display: flex; /* Используем flexbox */
+  display: flex; /* Используем Flexbox */
   justify-content: center; /* Центрируем по горизонтали */
   align-items: center; /* Центрируем по вертикали */
   min-height: 100vh; /* Минимальная высота равна высоте экрана */
+  background-color: $bg-color; /* Фон страницы */
+  overflow: hidden; /* Отключаем появление скролла */
 
   @media (max-width: 768px) {
-    width: 100%;  
+    padding: 20px; /* Добавляем отступы для маленьких экранов */
   }
 
   .auth-main {
     padding: 50px;
-    width: 400px;
-    height: auto;
+    width: 400px; /* Фиксированная ширина */
+    height: auto; /* Автоматическая высота */
     border-radius: 15px;
     text-align: center;
-    box-shadow: 0 19px 26px 0 #3D3D3D19;
+    box-shadow: 0 19px 26px 0 #3D3D3D19; /* Тень для визуального эффекта */
     display: flex;
     flex-direction: column;
     gap: 10px;
     align-items: center;
-    background-color: $bg-color;
+    background-color: white; /* Белый фон для блока */
+
+    @media (max-width: 768px) {
+      width: 90%; /* Уменьшаем ширину на маленьких экранах */
+      padding: 30px; /* Уменьшаем внутренние отступы */
+    }
 
     .auth-container {
       display: flex;
