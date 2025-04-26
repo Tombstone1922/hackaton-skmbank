@@ -59,12 +59,12 @@ const Checks = () => {
                   <p className="item-value">Master Grill</p>
                 </div>
                 <div className="item">
-                  <p className="item-title">Название организации</p>
-                  <p className="item-value">Master Grill</p>
+                  <p className="item-title">Дата и время совершения платежа</p>
+                  <p className="item-value">25.04.2025 14:00</p>
                 </div>
                 <div className="item">
-                  <p className="item-title">Название организации</p>
-                  <p className="item-value">Master Grill</p>
+                  <p className="item-title">Адрес совершения платежа</p>
+                  <p className="item-value">446022,63,САМАРСКАЯ ОБЛАСТЬ,СЫЗРАНЬ Г,ЛОКОМОБИЛЬНАЯ УЛ,1</p>
                 </div>
               </div>
               <button className="more-button">Подробнее...</button>
