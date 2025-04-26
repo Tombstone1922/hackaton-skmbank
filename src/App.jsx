@@ -7,6 +7,7 @@ import ExpensesChart from './components/ExpensesChart/ExpensesChart';
 import TrendsChart from './components/TrendsChart/TrendsChart';
 import Recommendations from './components/Recommendations/Recommendations';
 import Login from './components/Login/Login';
+import Checks from './components/Checks/Checks';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
                   </>
                 }
               />
+              <Route path="/checks" element={<Checks />} />
               <Route path="/recommendations" element={<Recommendations />} />
               <Route path="/login" element={<Login />} />
             </Routes>
