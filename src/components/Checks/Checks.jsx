@@ -1,8 +1,7 @@
-// src/components/Checks/Checks.jsx
 import React, { useState } from 'react';
 import "../../styles/Checks.scss"; // Импорт SCSS
 import Tesseract from 'tesseract.js'; // Библиотека для распознавания текста
-import Jimp from 'jimp-browser'; // Библиотека для предварительной обработки изображений
+import Jimp from '../../../node_modules/jimp-browser/package.json'; // Библиотека для предварительной обработки изображений
 
 const Checks = () => {
   const [selectedFile, setSelectedFile] = useState(null); // Состояние для выбранного файла
@@ -26,15 +25,12 @@ const Checks = () => {
     }
   };
 
-  // Функция для открытия диалогового окна выбора файлов
+  // Открывает диалоговое окно выбора файлов
   const openFileInput = () => {
     document.getElementById('file-upload').click(); // Программно вызываем клик на скрытом input
   };
 
-<<<<<<< Updated upstream
-  const [isOpen, setIsOpen] = useState(false);
-=======
-  // Функция для обработки и распознавания чека
+  // Функция обработки и распознавания чека
   const processReceipt = async () => {
     if (!selectedFile) return;
 
@@ -158,7 +154,7 @@ const Checks = () => {
         if (match) {
           items.push({
             name: match[1].trim(),
-            quantity: match[2] ? parseInt(match[2]) : 1,
+            quantity: match[3] ? parseInt(match[2]) : 1,
             price: parseFloat(match[match.length - 1].replace(',', '.'))
           });
           break;
@@ -205,7 +201,6 @@ const Checks = () => {
     `;
     return html;
   }
->>>>>>> Stashed changes
 
   return (
     <div className="checks">
@@ -253,58 +248,21 @@ const Checks = () => {
               <p className="title">Чек №85204</p>
               <p className="date">Отсканировано: 25.04.2025 10:03</p>
             </div>
-<<<<<<< Updated upstream
-            <div className="info-table opened">
-              <div className="item">
-                <p className="item-title">Сумма платежа</p>
-                <p className="item-value">287.93 ₽</p>
-=======
             <div className="info-table">
               <div className="item">
                 <p className="item-title">Название организации</p>
                 <p className="item-value">Master Grill</p>
->>>>>>> Stashed changes
               </div>
               <div className="item">
                 <p className="item-title">Дата и время совершения платежа</p>
                 <p className="item-value">25.04.2025 14:00</p>
               </div>
               <div className="item">
-<<<<<<< Updated upstream
-                <p className="item-title">Название организации</p>
-                <p className="item-value">АГРОТОРГ</p>
-              </div>
-            </div>
-
-            <button
-            className="more-button"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-expanded={isOpen}
-            >
-              {isOpen ? 'Скрыть' : 'Подробнее'}
-            </button>
-
-            <div className={`info-table ${isOpen ? 'opened' : ''}`}>
-              <div className="item">
-                <p className="item-title">Тип операции</p>
-                <p className="item-value">Приход</p>
-              </div>
-              <div className="item">
-                <p className="item-title">ИНН</p>
-                <p className="item-value">7825706086</p>
-              </div>
-              <div className="item">
-                <p className="item-title">Адрес совершения платежа</p>
-                <p className="item-value">446022,63,САМАРСКАЯ ОБЛАСТЬ,СЫЗРАНЬ Г,ЛОКОМОБИЛЬНАЯ УЛ,1</p>
-              </div>
-            </div>
-=======
                 <p className="item-title">Адрес совершения платежа</p>
                 <p className="item-value">446022,63,САМАРСКАЯ ОБЛАСТЬ,СЫЗРАНЬ Г,ЛОКОМОБИЛЬНАЯ УЛ,1</p>
               </div>
             </div>
             <button className="more-button">Подробнее...</button>
->>>>>>> Stashed changes
           </div>
         </div>
       </div>

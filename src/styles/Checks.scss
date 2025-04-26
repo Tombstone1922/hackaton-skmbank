@@ -237,7 +237,6 @@ $outline-color: #DADADA;
           width: 100%;
         }
 
-<<<<<<< Updated upstream
         .check-card {
             border-radius: 20px;
             outline: 0.5px solid $outline-color;
@@ -306,12 +305,6 @@ $outline-color: #DADADA;
                     outline: 0.5px solid $outline-color;
                 }
             }
-=======
-        &:hover {
-          color: $main-red;
-          background-color: #fff;
-          outline: 0.5px solid $outline-color;
->>>>>>> Stashed changes
         }
       }
     }
