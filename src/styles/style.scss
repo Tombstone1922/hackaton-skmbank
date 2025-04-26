@@ -66,33 +66,9 @@ nav ul {
   }
 }
 
-.main {
-  margin: 20px auto;
-  padding: 20px 50px;
-}
-
-
-.trends {
-  margin-top: 40px;
-}
-
-.time-periods {
+.main-page {
   display: flex;
-  gap: 10px;
+  gap: 80px;
+  padding: 20px 40px;
 }
 
-.time-periods button {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.time-periods button.active {
-  background-color: $primary-color;
-  color: #fff;
-}
-
-.summary {
-  margin-top: 20px;
-}
