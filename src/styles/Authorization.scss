@@ -7,10 +7,11 @@ $bg-color: #FAF8F8;
 $outline-color: #e74c3c;
 
 .auth-bg {
-    display: flex;
-    justify-content: center;
-    background-color: white;
-    margin: 10%;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  margin: 10%;
+  width: 50%;
 
   @media (max-width: 768px) {
     padding: 20px;
@@ -18,20 +19,28 @@ $outline-color: #e74c3c;
 
   .auth-main {
     padding: 50px;
-    width: 400px;
+    width: 80%;
     height: auto;
     border-radius: 15px;
     text-align: center;
-    box-shadow: 0 19px 26px 0 #3D3D3D19;
+    box-shadow: 0 19px 26px 0 rgba(61, 61, 61, 0.0980392157);
     display: flex;
     flex-direction: column;
     gap: 10px;
     align-items: center;
-    background-color: $bg-color; /* Фон страницы */
+    background-color: #FAF8F8;
 
     @media (max-width: 768px) {
       width: 90%;
       padding: 30px;
+    }
+
+    .form {
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
     }
 
     .auth-container {
@@ -59,6 +68,10 @@ $outline-color: #e74c3c;
 
       .password-input {
         position: relative;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 40px;
 
         .toggle-password {
           position: absolute;
@@ -84,6 +97,12 @@ $outline-color: #e74c3c;
         margin-top: 5px;
         text-align: left;
       }
+    }
+
+    .password-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 5px; /* Отступ между полем ввода и сообщением об ошибке */
     }
 
     .auth-button {
