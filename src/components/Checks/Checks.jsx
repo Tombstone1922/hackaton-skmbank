@@ -9,6 +9,7 @@ const Checks = () => {
   const [results, setResults] = useState(null); // Состояние для результатов распознавания
   const [progress, setProgress] = useState(0); // Состояние для прогресса
   const [isProcessing, setIsProcessing] = useState(false); // Состояние для процесса обработки
+  const [isOpen, setIsOpen] = useState(false);
 
   // Обработчик выбора файла
   const handleFileChange = (event) => {
@@ -250,19 +251,77 @@ const Checks = () => {
             </div>
             <div className="info-table">
               <div className="item">
-                <p className="item-title">Название организации</p>
-                <p className="item-value">Master Grill</p>
-              </div>
-              <div className="item">
                 <p className="item-title">Дата и время совершения платежа</p>
                 <p className="item-value">25.04.2025 14:00</p>
               </div>
               <div className="item">
-                <p className="item-title">Адрес совершения платежа</p>
-                <p className="item-value">446022,63,САМАРСКАЯ ОБЛАСТЬ,СЫЗРАНЬ Г,ЛОКОМОБИЛЬНАЯ УЛ,1</p>
+                <p className="item-title">Сумма платежа</p>
+                <p className="item-value">287.93 ₽</p>
+              </div>
+              <div className="item">
+                <p className="item-title">Название организации</p>
+                <p className="item-value">АГРОТОРГ</p>
               </div>
             </div>
-            <button className="more-button">Подробнее...</button>
+
+            <button 
+              className="more-button" 
+              onClick={() => setIsOpen(!isOpen)}
+              aria-expanded={isOpen}
+            >
+              {isOpen ? 'Скрыть' : 'Подробнее'}
+            </button>
+
+            <div className={`details ${isOpen ? '' : 'closed'}`}>
+              <div className="info-table">
+                <div className="item">
+                  <p className="item-title">Тип операции</p>
+                  <p className="item-value">Приход</p>
+                </div>
+                <div className="item">
+                  <p className="item-title">ИНН организации</p>
+                  <p className="item-value">7825706086</p>
+                </div>
+                <div className="item">
+                  <p className="item-title">Адрес совершения платежа</p>
+                  <p className="item-value">446022,63,САМАРСКАЯ ОБЛАСТЬ,СЫЗРАНЬ Г,ЛОКОМОБИЛЬНАЯ УЛ,1</p>
+                </div>
+              </div>
+
+              <table className="items-table">
+                <thead>
+                  <th className="table-header">№</th>
+                  <th className="table-header">Название</th>
+                  <th className="table-header">Цена</th>
+                  <th className="table-header">Кол.</th>
+                  <th className="table-header">Сумма</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Кирпич пустотельный М-150</td>
+                    <td>800</td>
+                    <td>10.22</td>
+                    <td>8176.00</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Щебень фракция 20x40 т.</td>
+                    <td>5</td>
+                    <td>480.00</td>
+                    <td>2400.00</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Гвозди жидкие/ 310 мл</td>
+                    <td>4</td>
+                    <td>163.00</td>
+                    <td>652.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
           </div>
         </div>
       </div>
