@@ -1,34 +1,36 @@
-import React, { useState } from 'react';
+// src/components/Checks/Checks.jsx
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 import "../../styles/Checks.scss"; // Импорт SCSS
-import Tesseract from 'tesseract.js'; // Библиотека для распознавания текста
-import Jimp from '../../../node_modules/jimp-browser/package.json'; // Библиотека для предварительной обработки изображений
 
 const Checks = () => {
-  const [selectedFile, setSelectedFile] = useState(null); // Состояние для выбранного файла
-  const [error, setError] = useState(''); // Состояние для ошибок
-  const [results, setResults] = useState(null); // Состояние для результатов распознавания
-  const [progress, setProgress] = useState(0); // Состояние для прогресса
-  const [isProcessing, setIsProcessing] = useState(false); // Состояние для процесса обработки
-  const [isOpen, setIsOpen] = useState(false);
+  const { isAuthenticated } = useContext(AuthContext);
+
+  // Состояния для работы с файлами и результатами
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [error, setError] = useState('');
+  const [results, setResults] = useState(null);
+  const [progress, setProgress] = useState(0);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   // Обработчик выбора файла
   const handleFileChange = (event) => {
-    const file = event.target.files[0]; // Получаем выбранный файл
+    const file = event.target.files[0];
     if (file) {
-      const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf']; // Разрешенные типы файлов
+      const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
       if (allowedTypes.includes(file.type)) {
-        setSelectedFile(file); // Сохраняем файл в состоянии
-        setError(''); // Очищаем ошибку
+        setSelectedFile(file);
+        setError('');
       } else {
-        setError('Недопустимый формат файла. Принимаются только *.jpg, *.png, *.pdf'); // Показываем ошибку
-        setSelectedFile(null); // Очищаем выбранный файл
+        setError('Недопустимый формат файла. Принимаются только *.jpg, *.png, *.pdf');
+        setSelectedFile(null);
       }
     }
   };
 
   // Открывает диалоговое окно выбора файлов
   const openFileInput = () => {
-    document.getElementById('file-upload').click(); // Программно вызываем клик на скрытом input
+    document.getElementById('file-upload').click();
   };
 
   // Функция обработки и распознавания чека
@@ -55,8 +57,6 @@ const Checks = () => {
               updateProgress(progressPercent, "Анализ текста...");
             }
           },
-          preserve_interword_spaces: 1,
-          tessedit_char_whitelist: '0123456789.,абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:/- '
         }
       );
 
@@ -68,8 +68,9 @@ const Checks = () => {
         total: extractTotal(text),
         shop: extractShop(text),
         items: extractItems(text),
-        rawText: text
+        rawText: text,
       };
+
       updateProgress(100, "Готово!");
       setResults(result);
     } catch (error) {
@@ -83,16 +84,14 @@ const Checks = () => {
   async function preprocessImage(file) {
     return new Promise((resolve) => {
       const reader = new FileReader();
-      reader.onload = async function(event) {
+      reader.onload = async function (event) {
         try {
-          // Используем Jimp для обработки изображения
           const image = await Jimp.read(event.target.result);
           await image
             .greyscale()
             .contrast(0.5)
             .normalize()
             .quality(100);
-          // Конвертируем обратно в base64
           const processedData = await image.getBase64Async(Jimp.MIME_JPEG);
           resolve(processedData);
         } catch (error) {
@@ -146,7 +145,7 @@ const Checks = () => {
     const itemPatterns = [
       /(.+?)\s+(\d+[,.]\d{2})\s*$/,
       /(.+?)\s+(\d+)\s*[xх*]\s*(\d+[,.]\d{2})/,
-      /(.+?)\s+(\d+[,.]\d{2})\s+(\d+[,.]\d{2})/
+      /(.+?)\s+(\d+[,.]\d{2})\s+(\d+[,.]\d{2})/,
     ];
     for (const line of lines) {
       if (line.trim().length < 3) continue;
@@ -156,7 +155,7 @@ const Checks = () => {
           items.push({
             name: match[1].trim(),
             quantity: match[3] ? parseInt(match[2]) : 1,
-            price: parseFloat(match[match.length - 1].replace(',', '.'))
+            price: parseFloat(match[match.length - 1].replace(',', '.')),
           });
           break;
         }
@@ -191,7 +190,6 @@ const Checks = () => {
       });
       html += `</div>`;
     }
-    // Кнопка для просмотра сырого текста (для отладки)
     html += `
       <button onclick="document.getElementById('rawText').style.display='block';this.style.display='none'">
         Показать распознанный текст
@@ -205,129 +203,77 @@ const Checks = () => {
 
   return (
     <div className="checks">
-      {/* Блок загрузки чека */}
-      <div className="check-loader" onClick={openFileInput}>
-        <img src="../../../images/receipt-payment-check.svg" alt="Загрузка чека" />
-        <p className="primary-text">Загрузите или перетащите сюда чек</p>
-        <p className="secondary-text">Принимаются файлы *.jpg *.png *.pdf</p>
-        <input
-          id="file-upload"
-          type="file"
-          accept=".jpg,.png,.pdf" // Разрешенные форматы файлов
-          style={{ display: 'none' }} // Скрываем стандартный input
-          onChange={handleFileChange}
-        />
-        
-      </div>
-
-      {error && <p className="error-message">{error}</p>}
-        {selectedFile && !results && (
-          <p className="success-message">Файл "{selectedFile.name}" успешно загружен!</p>
-        )}
-        {isProcessing && (
-          <div className="progress-bar">
-            <div className="progress" style={{ width: `${progress}%` }}></div>
-            <span>{progress}%</span>
+      {isAuthenticated ? (
+        <>
+          {/* Блок загрузки чека */}
+          <div className="check-loader" onClick={openFileInput}>
+            <img src="../../../images/receipt-payment-check.svg" alt="Загрузка чека" />
+            <p className="primary-text">Загрузите или перетащите сюда чек</p>
+            <p className="secondary-text">Принимаются файлы *.jpg *.png *.pdf</p>
+            <input
+              id="file-upload"
+              type="file"
+              accept=".jpg,.png,.pdf"
+              style={{ display: 'none' }}
+              onChange={handleFileChange}
+            />
           </div>
-      )}
 
-      {!isProcessing && selectedFile && !results && (
-        <button className="process-button" onClick={processReceipt}>
-          Обработать чек
-        </button>
-      )}
-      {results && (
-        <div className="results">
-          <h2>Результаты распознавания</h2>
-          <div dangerouslySetInnerHTML={{ __html: displayResults() }} />
-        </div>
-      )}
-
-      {/* Блок с чеками */}
-      <div className="check-container">
-        <p className="title">Ваши чеки</p>
-        <div className="check-table">
-          <div className="check-card">
-            <div className="top-section">
-              <p className="title">Чек №85204</p>
-              <p className="date">Отсканировано: 25.04.2025 10:03</p>
+          {error && <p className="error-message">{error}</p>}
+          {selectedFile && !results && (
+            <p className="success-message">Файл "{selectedFile.name}" успешно загружен!</p>
+          )}
+          {isProcessing && (
+            <div className="progress-bar">
+              <div className="progress" style={{ width: `${progress}%` }}></div>
+              <span>{progress}%</span>
             </div>
-            <div className="info-table">
-              <div className="item">
-                <p className="item-title">Дата и время совершения платежа</p>
-                <p className="item-value">25.04.2025 14:00</p>
-              </div>
-              <div className="item">
-                <p className="item-title">Сумма платежа</p>
-                <p className="item-value">287.93 ₽</p>
-              </div>
-              <div className="item">
-                <p className="item-title">Название организации</p>
-                <p className="item-value">АГРОТОРГ</p>
-              </div>
-            </div>
-
-            <button 
-              className="more-button" 
-              onClick={() => setIsOpen(!isOpen)}
-              aria-expanded={isOpen}
-            >
-              {isOpen ? 'Скрыть' : 'Подробнее'}
+          )}
+          {!isProcessing && selectedFile && !results && (
+            <button className="process-button" onClick={processReceipt}>
+              Обработать чек
             </button>
-
-            <div className={`details ${isOpen ? '' : 'closed'}`}>
-              <div className="info-table">
-                <div className="item">
-                  <p className="item-title">Тип операции</p>
-                  <p className="item-value">Приход</p>
-                </div>
-                <div className="item">
-                  <p className="item-title">ИНН организации</p>
-                  <p className="item-value">7825706086</p>
-                </div>
-                <div className="item">
-                  <p className="item-title">Адрес совершения платежа</p>
-                  <p className="item-value">446022,63,САМАРСКАЯ ОБЛАСТЬ,СЫЗРАНЬ Г,ЛОКОМОБИЛЬНАЯ УЛ,1</p>
-                </div>
-              </div>
-
-              <table className="items-table">
-                <thead>
-                  <th className="table-header">№</th>
-                  <th className="table-header">Название</th>
-                  <th className="table-header">Цена</th>
-                  <th className="table-header">Кол.</th>
-                  <th className="table-header">Сумма</th>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Кирпич пустотельный М-150</td>
-                    <td>800</td>
-                    <td>10.22</td>
-                    <td>8176.00</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Щебень фракция 20x40 т.</td>
-                    <td>5</td>
-                    <td>480.00</td>
-                    <td>2400.00</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Гвозди жидкие/ 310 мл</td>
-                    <td>4</td>
-                    <td>163.00</td>
-                    <td>652.00</td>
-                  </tr>
-                </tbody>
-              </table>
+          )}
+          {results && (
+            <div className="results">
+              <h2>Результаты распознавания</h2>
+              <div dangerouslySetInnerHTML={{ __html: displayResults() }} />
             </div>
-            
+          )}
+
+          {/* Блок с чеками */}
+          <div className="check-container">
+            <p className="title">Ваши чеки</p>
+            <div className="check-table">
+              <div className="check-card">
+                <div className="top-section">
+                  <p className="title">Чек №85204</p>
+                  <p className="date">Отсканировано: 25.04.2025 10:03</p>
+                </div>
+                <div className="info-table">
+                  <div className="item">
+                    <p className="item-title">Дата и время совершения платежа</p>
+                    <p className="item-value">25.04.2025 14:00</p>
+                  </div>
+                  <div className="item">
+                    <p className="item-title">Сумма платежа</p>
+                    <p className="item-value">287.93 ₽</p>
+                  </div>
+                  <div className="item">
+                    <p className="item-title">Название организации</p>
+                    <p className="item-value">АГРОТОРГ</p>
+                  </div>
+                </div>
+                <button className="more-button">Подробнее...</button>
+              </div>
+            </div>
           </div>
+        </>
+      ) : (
+        <div className="not-auth-part">
+          <p className="auth-message">Зайдите в аккаунт или зарегистрируйтесь</p>
         </div>
-      </div>
+      )}
     </div>
   );
 };

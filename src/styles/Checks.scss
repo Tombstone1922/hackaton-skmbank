@@ -9,6 +9,21 @@ $outline-color: #DADADA;
     flex-direction: column;
     gap: 30px;
 
+    .not-auth-part {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        text-align: center;
+    
+        .auth-message {
+          color: #FF4E50; /* Цвет текста */
+          font-size: 18px;
+          font-weight: bold;
+        }
+    }
+
     .process-button {
         background-color: $main-red;
         color: #fff;
