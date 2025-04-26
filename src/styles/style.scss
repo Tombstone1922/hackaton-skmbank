@@ -28,39 +28,38 @@ body {
 
 header {
   gap: 30px;
-  padding: 10px;
+  padding: 30px 60px;
   display: flex;
   align-items: center;
   text-align: center;
+  justify-content: space-between;
 
   @media (max-width: 1025px) {
-    gap: 175px;
-    padding: 20px;
+    gap: 100px;
+    padding: 40px;
   }
 
   @media (max-width: 769px) {
-    gap: 20px;
+    gap: 10px;
     padding: 20px;
   }
 
   @media (max-width: 426px) {
     flex-direction: column; // Элементы шапки будут в колонку
     gap: 0;
-    padding: 5px 30px;
+    padding: 20px 30px;
   }
 
-
-
   .logo-img {
-    width: 100px; // Уменьшаем размер логотипа
+    width: 130px;
     height: auto;
   }
 
   nav ul {
     list-style: none;
     display: flex;
-    gap: 30px;
-    font-size: 20px;
+    gap: 50px;
+    font-size: 22px;
 
 
     @media (max-width: 769px) {
