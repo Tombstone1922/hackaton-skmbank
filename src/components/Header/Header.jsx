@@ -1,7 +1,10 @@
 // src/components/Header/Header.jsx
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom'; // Импортируем useLocation
 
 const Header = () => {
+  const location = useLocation(); // Получаем текущий путь
+
   return (
     <header>
       <div className="logo">
@@ -9,10 +12,38 @@ const Header = () => {
       </div>
       <nav>
         <ul>
-          <li><a href="/" className="active">Главная</a></li>
-          <li><a href="#">Чеки</a></li>
-          <li><a href="#">История</a></li>
-          <li><a href="/recommendations">Рекомендации</a></li>
+          <li>
+            <Link
+              to="/"
+              className={location.pathname === '/' ? 'active' : ''}
+            >
+              Главная
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/checks"
+              className={location.pathname === '/checks' ? 'active' : ''}
+            >
+              Чеки
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/history"
+              className={location.pathname === '/history' ? 'active' : ''}
+            >
+              История
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/recommendations"
+              className={location.pathname === '/recommendations' ? 'active' : ''}
+            >
+              Рекомендации
+            </Link>
+          </li>
         </ul>
       </nav>
       <div className="user">

@@ -35,19 +35,20 @@ header {
   height: 100%;
 }
 
+/* src/styles/style.scss */
+
 nav ul {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 30px;
   font-size: 20px;
 
   li a {
-    text-decoration: none;
+    text-decoration: none; /* Убираем стандартное подчёркивание */
     color: $text-color;
     font-weight: bold;
     padding: 5px 0;
-
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
 
     &:hover {
       color: $primary-color;
@@ -55,8 +56,10 @@ nav ul {
   }
 
   .active {
-    border-bottom: 3px solid $primary-color;
-    border-radius: 3px;
+    text-decoration: underline; /* Подчёркивание для активной ссылки */
+    text-underline-offset: 4px; /* Отступ подчёркивания от текста */
+    text-decoration-thickness: 2px; 
+    text-decoration-color: $primary-color; /* Цвет подчёркивания */
   }
 }
 
@@ -68,8 +71,8 @@ nav ul {
 
   .login {
     text-decoration: none;
-    color: $primary-color;
-    font-weight: bold;
+    color: #e74c3c;
+    font-weight: 500;
   }
 
   .user-img {
