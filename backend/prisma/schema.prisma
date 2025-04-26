@@ -24,6 +24,7 @@ model User {
   username      String   @unique
   passwordHash  String
   refreshTokens RefreshToken[]
+  receipts Receipt[]
 }
 
 model RefreshToken {
@@ -33,4 +34,3 @@ model RefreshToken {
   user       User     @relation(fields: [userId], references: [id])
   userId     String
 }
-

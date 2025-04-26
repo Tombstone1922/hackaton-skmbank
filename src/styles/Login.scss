@@ -59,13 +59,13 @@ $outline-color: #e74c3c;
     }
 
     .login-button {
-      background-color: $main-red;
+      background-color: #FF4E50;
       color: #fff;
       border: none;
       padding: 10px 20px;
       border-radius: 15px;
       cursor: pointer;
-      width: 50%;
+      width: 100%;
 
       @media (max-width: 768px) {
         width: 100%;

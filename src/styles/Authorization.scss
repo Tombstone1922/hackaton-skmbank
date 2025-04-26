@@ -26,7 +26,7 @@ $outline-color: #e74c3c;
     box-shadow: 0 19px 26px 0 rgba(61, 61, 61, 0.0980392157);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     align-items: center;
     background-color: #FAF8F8;
 
@@ -36,18 +36,18 @@ $outline-color: #e74c3c;
     }
 
     .form {
-      width: 80%;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      align-items: center;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
     }
 
     .auth-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
 
       input {
         width: 100%;
@@ -64,6 +64,13 @@ $outline-color: #e74c3c;
           border: 1px solid $main-red;
           border-radius: 20px;
         }
+      }
+
+      .password {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding: 10px 0;
       }
 
       .password-input {
@@ -92,10 +99,9 @@ $outline-color: #e74c3c;
       }
 
       .error-message {
-        color: $main-red;
+        color: red; /* Цвет ошибки */
         font-size: 14px;
         margin-top: 5px;
-        text-align: left;
       }
     }
 
@@ -106,14 +112,14 @@ $outline-color: #e74c3c;
     }
 
     .auth-button {
-      background-color: $main-red;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 15px;
-      cursor: pointer;
-      width: 60%;
-      text-align: center;
+        background-color: #FF4E50;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 15px;
+        cursor: pointer;
+        width: 100%;
+        text-align: center;
 
       @media (max-width: 768px) {
         width: 100%;
