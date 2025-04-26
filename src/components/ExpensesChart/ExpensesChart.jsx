@@ -30,7 +30,8 @@ const ExpensesChart = () => {
           ],
         },
         options: {
-          responsive: true,
+          responsive: true, // Адаптивность включена
+          maintainAspectRatio: false, // Отключаем сохранение пропорций
           plugins: {
             legend: {
               position: 'bottom',
@@ -40,11 +41,23 @@ const ExpensesChart = () => {
       });
     }
 
+    // Функция для обработки изменения размеров окна
+    const handleResize = () => {
+      if (chartInstance.current) {
+        chartInstance.current.resize(); // Перерисовываем диаграмму
+        chartInstance.current.update(); // Принудительно обновляем
+      }
+    };
+
+    // Добавляем обработчик события resize
+    window.addEventListener('resize', handleResize);
+
     // Очистка при размонтировании компонента
     return () => {
       if (chartInstance.current) {
-        chartInstance.current.destroy();
+        chartInstance.current.destroy(); // Уничтожаем диаграмму
       }
+      window.removeEventListener('resize', handleResize); // Удаляем обработчик
     };
   }, []);
 
@@ -52,7 +65,7 @@ const ExpensesChart = () => {
     <section className="expenses">
       <h2>Расходы за апрель</h2>
       <div className="chart-container">
-        <canvas ref={chartRef} className='chart'></canvas>
+        <canvas ref={chartRef} style={{ width: '100%', height: '100%' }}></canvas>
       </div>
       <ul className="expense-list">
         <li>

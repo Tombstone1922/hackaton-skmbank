@@ -1,4 +1,5 @@
 /* src/styles/style.scss */
+
 @import "../assets/fonts/fonts.css";
 
 // Переменные для цветов
@@ -8,7 +9,6 @@ $success-color: #2ecc71;
 $warning-color: #f1c40f;
 $background-color: #f4f4f4;
 $text-color: #333;
-
 
 // Общие стили
 * {
@@ -20,6 +20,10 @@ $text-color: #333;
 
 body {
   color: $text-color;
+
+  @media (max-width: 425px) {
+    background-color: white; // Фон становится белым на маленьких экранах
+  }
 }
 
 header {
@@ -28,57 +32,50 @@ header {
   align-items: center;
   background-color: #fff;
   padding: 20px 50px;
-}
 
-.logo-img {
-  width: 100%;
-  height: 100%;
-}
+  @media (max-width: 425px) {
+    flex-direction: column; // Элементы шапки будут в колонку
+    gap: 10px; // Добавляем отступ между элементами
+    padding: 10px; // Уменьшаем отступы
+  }
 
-/* src/styles/style.scss */
+  .logo-img {
+    width: 100px; // Уменьшаем размер логотипа
+    height: auto;
+  }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 30px;
-  font-size: 20px;
-
-  li a {
-    text-decoration: none; /* Убираем стандартное подчёркивание */
-    color: $text-color;
-    font-weight: bold;
-    padding: 5px 0;
-    transition: color 0.3s ease, text-decoration 0.3s ease;
-
-    &:hover {
-      color: $primary-color;
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    font-size: 20px;
+  
+    li a {
+      text-decoration: none; /* Убираем стандартное подчёркивание */
+      color: $text-color;
+      font-weight: bold;
+      padding: 5px 0;
+      transition: color 0.3s ease, text-decoration 0.3s ease;
+  
+      &:hover {
+        color: $primary-color;
+      }
+    }
+    .active {
+      text-decoration: underline; /* Подчёркивание для активной ссылки */
+      text-underline-offset: 4px; /* Отступ подчёркивания от текста */
+      text-decoration-thickness: 2px; 
+      text-decoration-color: $primary-color; /* Цвет подчёркивания */
     }
   }
 
-  .active {
-    text-decoration: underline; /* Подчёркивание для активной ссылки */
-    text-underline-offset: 4px; /* Отступ подчёркивания от текста */
-    text-decoration-thickness: 2px; 
-    text-decoration-color: $primary-color; /* Цвет подчёркивания */
-  }
-}
+  .user {
+    font-size: 16px; // Уменьшаем размер текста
 
-.user {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-  font-size: 24px;
-
-  .login {
-    text-decoration: none;
-    color: #e74c3c;
-    font-weight: 500;
-  }
-
-  .user-img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    .user-img {
+      width: 40px; // Уменьшаем размер аватара
+      height: 40px;
+    }
   }
 }
 
@@ -86,6 +83,26 @@ nav ul {
   display: flex;
   gap: 80px;
   padding: 20px 40px;
-  justify-content: center;
+  justify-content: center; // Центрируем содержимое по горизонтали
+  align-items: flex-start; // Выравниваем по верхнему краю
+  transition: all 0.3s ease; // Плавные изменения
+
+  @media (max-width: 1024px) {
+    gap: 0;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media (max-width: 425px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; // Уменьшаем отступы
+    gap: 20px; // Добавляем отступ между элементами
+  }
 }
 
