@@ -221,7 +221,7 @@ const Checks = () => {
       </div>
 
       {error && <p className="error-message">{error}</p>}
-        {selectedFile && (
+        {selectedFile && !results && (
           <p className="success-message">Файл "{selectedFile.name}" успешно загружен!</p>
         )}
         {isProcessing && (
@@ -231,7 +231,7 @@ const Checks = () => {
           </div>
       )}
 
-      {!isProcessing && selectedFile && (
+      {!isProcessing && selectedFile && !results && (
         <button className="process-button" onClick={processReceipt}>
           Обработать чек
         </button>
