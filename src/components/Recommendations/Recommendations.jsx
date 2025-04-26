@@ -2,7 +2,7 @@
 import React from 'react';
 import "../../styles/Recommendations.scss"; // Импорт SCSS
 
-const Recommendations = ({ title }) => {
+const Recommendations = () => {
   return (
     <div className="recommendations">
       <h2>Лучшие предложения</h2>

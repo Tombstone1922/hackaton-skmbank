@@ -7,9 +7,9 @@ const Header = () => {
 
   return (
     <header>
-      <div className="logo">
+      <a href="/" className="logo">
         <img src="/logo.png" alt="Логотип Халва" className='logo-img'/>
-      </div>
+      </a>
       <nav>
         <ul>
           <li>
@@ -47,7 +47,7 @@ const Header = () => {
         </ul>
       </nav>
       <div className="user">
-        <a href="#" className="login">Войти</a>
+        <a href="/login" className="login">Войти</a>
         <img src="/user.png" alt="Аватар пользователя" className='user-img'/>
       </div>
     </header>

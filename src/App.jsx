@@ -6,6 +6,7 @@ import Header from './components/Header/Header';
 import ExpensesChart from './components/ExpensesChart/ExpensesChart';
 import TrendsChart from './components/TrendsChart/TrendsChart';
 import Recommendations from './components/Recommendations/Recommendations';
+import Login from './components/Login/Login';
 
 function App() {
   return (
@@ -15,7 +16,6 @@ function App() {
           <Header />
           <main className='main-page'>
             <Routes>
-              {/* Главная страница с двумя компонентами */}
               <Route
                 path="/"
                 element={
@@ -25,8 +25,8 @@ function App() {
                   </>
                 }
               />
-              {/* Страница рекомендаций */}
               <Route path="/recommendations" element={<Recommendations />} />
+              <Route path="/login" element={<Login />} />
             </Routes>
           </main>
         </div>
