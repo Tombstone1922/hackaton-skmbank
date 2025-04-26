@@ -25,11 +25,11 @@ const TrendsAndExpenses = () => {
       ) : (
         <div className='not-auth-part'>
             <div className='expenses-part'>
-                <h2>График трендов</h2>
+            <h2>Расходы за апрель</h2>
                 <p className="auth-message">Зайдите в аккаунт или зарегистрируйтесь</p>
             </div>
             <div className='trends-part'>
-                <h2>Расходы за апрель</h2>
+                <h2>График трендов</h2>
                 <p className="auth-message">Зайдите в аккаунт или зарегистрируйтесь</p>
             </div>
         </div>
