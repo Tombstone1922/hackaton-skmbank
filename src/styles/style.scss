@@ -39,6 +39,8 @@ header {
     padding: 10px; // Уменьшаем отступы
   }
 
+
+
   .logo-img {
     width: 100px; // Уменьшаем размер логотипа
     height: auto;
@@ -70,7 +72,16 @@ header {
   }
 
   .user {
-    font-size: 16px; // Уменьшаем размер текста
+    font-size: 16px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    a {
+      text-decoration: none;
+      color: $primary-color;
+      font-weight: 600;
+    }
 
     .user-img {
       width: 40px; // Уменьшаем размер аватара
