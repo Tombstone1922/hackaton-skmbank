@@ -1,0 +1,71 @@
+$primary-color: #e74c3c;
+$background-color: #f4f4f4;
+$outline-color: #e74c3c;
+
+.trends-and-expenses {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+
+    .not-auth-part {
+        display: flex;
+        gap: 90px;
+        justify-content: flex-start;
+
+
+        .expenses-part {
+            width: 100%;
+            height: auto;
+            min-height: 300px;
+            background-color: #f4f4f4;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            flex-direction: column;
+            gap: 90px;
+            text-align: center;
+        }
+    
+        .auth-message {
+          color: #FF4E50; /* Цвет текста */
+          font-size: 18px;
+          font-weight: bold;
+        }
+      
+        .chart-section {
+          width: 100%;
+          text-align: center;
+      
+          h2 {
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #333;
+          }
+      
+          .chart-placeholder {
+            width: 100%;
+            height: 200px;
+            background-color: #f5f5f5;
+            border: 1px dashed #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            color: #666;
+          }
+        }
+    
+        .trends-part {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+    }
+  
+    
+  }
