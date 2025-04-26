@@ -13,7 +13,28 @@ const Checks = () => {
 
         <div className="check-container">
             <p className="title">Ваши чеки</p>
-            <div className="check-table"></div>
+            <div className="check-table">
+              <div className="check-card">
+                <div className="top-section">
+                  <p className="title">Чек №85204</p>
+                  <p className="date">Отсканировано: 25.04.2025 10:03</p>
+                </div>
+                <div className="info-table">
+                  <div className="item">
+                    <p className="item-title">Название организации</p>
+                    <p className="item-value">Master Grill</p>
+                  </div>
+                  <div className="item">
+                    <p className="item-title">Название организации</p>
+                    <p className="item-value">Master Grill</p>
+                  </div>
+                  <div className="item">
+                    <p className="item-title">Название организации</p>
+                    <p className="item-value">Master Grill</p>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
     </div>
   );
